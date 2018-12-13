@@ -1,0 +1,32 @@
+example_script:
+  sequence:
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+        - media_player.portable
+      data:
+        message: "Attention, there are 15 minutes until departure. Warming up the car."
+    - delay:
+        minutes: 5
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+        - media_player.portable
+      data:
+        message: "Attention, there are 10 minutes until departure."
+    - delay:
+        minutes: 5
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+        - media_player.portable
+      data:
+        message: "Attention, there are 5 minutes until departure."
+    - delay:
+        minutes: 5
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+        - media_player.portable
+      data:
+        message: "Attention, the time is up."

@@ -1,0 +1,91 @@
+- id: a
+  alias: Christmas Lights On
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:10:00"
+    - platform: time
+      at: '05:45:00'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.ge_45604_outdoor_module_switch
+    - service: switch.turn_on
+      data:
+        entity_id: switch.zooz_zen06_switch
+    - service: notify.pushover
+      data:
+        message: "XMAS lights have been turned on"
+        title: "Lights on"
+- id: b
+  alias: Christmas Lights Off
+  trigger:
+    - platform: time
+      at: '01:00:00'
+    - platform: sun
+      event: sunrise
+      offset: "-00:10:00"
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.zooz_zen06_switch 
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ge_45604_outdoor_module_switch
+    - service: notify.pushover
+      data:
+        message: "XMAS lights have been turned off"
+        title: "Lights off"
+- id: c
+  alias: Laundry room lights on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ecolink_motion_detector_sensor_laundry
+    to: 'on'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.laundry_room_lights
+- id: d
+  alias: Laundry room lights off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.ecolink_motion_detector_sensor_laundry
+    to: 'off'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.laundry_room_lights
+- id: e
+  alias: Set BMW Away Input Boolean
+  trigger:
+    platform: state
+    entity_id: device_tracker.i3_94__rex
+    from: 'home'
+    to: 'away'
+    for: '00:10:00'
+  action:
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.bmw_home
+- id: f
+  alias: Set BMW Home Input Boolean
+  trigger:
+    platform: state
+    entity_id: device_tracker.i3_94__rex
+    to: 'home'
+  action:
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.bmw_home
+- id: g
+  alias: Eliza dimmer wakeup
+  trigger:
+    - platform: time
+      at: '06:35:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.ge_14294_inwall_smart_dimmer_level
+        brightness: 100
+        transition: 1200
