@@ -84,8 +84,5 @@
     - platform: time
       at: '06:35:00'
   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.ge_14294_inwall_smart_dimmer_level
-        brightness: 100
-        transition: 1200
+    - service: script.turn_on
+      entity_id: script.launch_sequence

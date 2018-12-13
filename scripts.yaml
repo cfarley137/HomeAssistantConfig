@@ -1,32 +1,178 @@
-example_script:
+launch_sequence:
   sequence:
+    # T-60
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 14
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 14
+    - delay:
+        minutes: 1
+    # T-59
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 16
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 16
+    - delay:
+        minutes: 1
+    # T-58
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 19
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 19
+    - delay:
+        minutes: 1
+    # T-57
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 21
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 21
+    - delay:
+        minutes: 1
+    # T-56
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 24
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 24
+    - delay:
+        minutes: 1
+    # T-55
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 26
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 26
+    # Start up the media players and set the volume
+    - service: media_player.turn_on
+      data:
+        entity_id:
+          - media_player.google_home_eliza
+          - media_player.google_home_guest_room
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.google_home_eliza
+          - media_player.google_home_guest_room
+        volume_level: 0.4
     - service: tts.google_say
       entity_id:
-        - media_player.kitchen
-        - media_player.portable
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
       data:
-        message: "Attention, there are 15 minutes until departure. Warming up the car."
+        message: "It's time to wake up, losers! T minus 55 minutes until departure."
+    - delay:
+        minutes: 1 
+    # T-54
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 28
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 28
+    - delay:
+        minutes: 1 
+    # T-53
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 30
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 30
+    - delay:
+        minutes: 1 
+    # T-52
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 32
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 32
+    - delay:
+        minutes: 1 
+    # T-51
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 34
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 34
+    - delay:
+        minutes: 1 
+    # T-50
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness: 36
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness: 36
+    - delay:
+        minutes: 35 
+    # T-15
+    - service: tts.google_say
+      entity_id:
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
+      data:
+        message: "T minus 15 minutes until departure."
     - delay:
         minutes: 5
+    # T-10
     - service: tts.google_say
       entity_id:
-        - media_player.kitchen
-        - media_player.portable
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
       data:
-        message: "Attention, there are 10 minutes until departure."
+        message: "T minus 10 minutes until departure."
     - delay:
         minutes: 5
+    # T-5
     - service: tts.google_say
       entity_id:
-        - media_player.kitchen
-        - media_player.portable
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
       data:
-        message: "Attention, there are 5 minutes until departure."
+        message: "T minus 5 minutes until departure. This is your final warning. Vehicle heating sequence has been activated. T minus 5 minutes until departure!"
+    - service: bmw_connected_drive.activate_air_conditioning
+      data:
+        vin: !secret bmw_vin
     - delay:
         minutes: 5
+    # LAUNCH
     - service: tts.google_say
       entity_id:
-        - media_player.kitchen
-        - media_player.portable
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
       data:
-        message: "Attention, the time is up."
+        message: "It's time to go! Please proceed to the departure area immediately."
