@@ -79,10 +79,29 @@
       data:
         entity_id: input_boolean.bmw_home
 - id: g
-  alias: Eliza dimmer wakeup
+  alias: Activate Launch Sequence
   trigger:
     - platform: time
       at: '06:35:00'
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - thu
+      - fri
+  action:
+    - service: script.turn_on
+      entity_id: script.launch_sequence
+- id: h
+  alias: Activate Launch Sequence - LATE START
+  trigger:
+    - platform: time
+      at: '07:15:00'
+  condition:
+    condition: time
+    weekday:
+      - wed
   action:
     - service: script.turn_on
       entity_id: script.launch_sequence

@@ -138,7 +138,15 @@ launch_sequence:
         entity_id: light.guest_room_track
         brightness: 36
     - delay:
-        minutes: 35 
+        minutes: 30 
+    # T-20
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "T minus 20 minutes until departure."
+    - delay:
+        minutes: 5 
     # T-15
     - service: tts.google_say
       entity_id:
