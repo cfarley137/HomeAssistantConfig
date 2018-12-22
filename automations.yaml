@@ -57,27 +57,25 @@
       data:
         entity_id: switch.laundry_room_lights
 - id: e
-  alias: Set BMW Away Input Boolean
+  alias: Mechanical room lights on
   trigger:
     platform: state
-    entity_id: device_tracker.i3_94__rex
-    from: 'home'
-    to: 'away'
-    for: '00:10:00'
+    entity_id: binary_sensor.ecolink_motion_detector_sensor_mechanical
+    to: 'on'
   action:
-    - service: input_boolean.turn_off
+    - service: switch.turn_on
       data:
-        entity_id: input_boolean.bmw_home
+        entity_id: switch.mechanical_room_lights
 - id: f
-  alias: Set BMW Home Input Boolean
+  alias: Mechanical room lights off
   trigger:
     platform: state
-    entity_id: device_tracker.i3_94__rex
-    to: 'home'
+    entity_id: binary_sensor.ecolink_motion_detector_sensor_mechanical
+    to: 'off'
   action:
-    - service: input_boolean.turn_on
+    - service: switch.turn_off
       data:
-        entity_id: input_boolean.bmw_home
+        entity_id: switch.mechanical_room_lights
 - id: g
   alias: Activate Launch Sequence
   trigger:
