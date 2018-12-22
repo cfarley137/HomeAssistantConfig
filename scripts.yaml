@@ -99,52 +99,71 @@ launch_sequence:
     - service: light.turn_on
       data:
         entity_id: light.eliza_track
-        brightness: 30
+        brightness: 31
     - service: light.turn_on
       data:
         entity_id: light.guest_room_track
-        brightness: 30
+        brightness: 31
     - delay:
         minutes: 1 
     # T-52
     - service: light.turn_on
       data:
         entity_id: light.eliza_track
-        brightness: 32
+        brightness: 34
     - service: light.turn_on
       data:
         entity_id: light.guest_room_track
-        brightness: 32
+        brightness: 34
     - delay:
         minutes: 1 
     # T-51
     - service: light.turn_on
       data:
         entity_id: light.eliza_track
-        brightness: 34
+        brightness: 37
     - service: light.turn_on
       data:
         entity_id: light.guest_room_track
-        brightness: 34
+        brightness: 37
     - delay:
         minutes: 1 
     # T-50
     - service: light.turn_on
       data:
         entity_id: light.eliza_track
-        brightness: 36
+        brightness: 40
     - service: light.turn_on
       data:
         entity_id: light.guest_room_track
-        brightness: 36
+        brightness: 40
     - delay:
-        minutes: 30 
+        minutes: 5 
+    # T-45 (aka 6:50)
+    - service: media_player.turn_on
+      data:
+        entity_id:
+          - media_player.kitchen
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 0.4
+    - service: tts.google_say
+      entity_id:
+        - media_player.google_home_eliza
+        - media_player.google_home_guest_room
+        - media_player.kitchen
+      data:
+        message: "The alarm to wake up went off 10 minutes ago. Get ready to eat breakfast. T minus 45 minutes until departure!"
+    - delay:
+        minutes: 25 
     # T-20
     - service: tts.google_say
       entity_id:
         - media_player.kitchen
       data:
-        message: "T minus 20 minutes until departure."
+        message: "T minus 20 minutes until departure. Are you still downstairs? Better hurry!"
     - delay:
         minutes: 5 
     # T-15
@@ -152,6 +171,7 @@ launch_sequence:
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_guest_room
+        - media_player.kitchen
       data:
         message: "T minus 15 minutes until departure."
     - delay:
@@ -161,6 +181,7 @@ launch_sequence:
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_guest_room
+        - media_player.kitchen
       data:
         message: "T minus 10 minutes until departure."
     - delay:
@@ -170,6 +191,7 @@ launch_sequence:
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_guest_room
+        - media_player.kitchen
       data:
         message: "T minus 5 minutes until departure. This is your final warning. Vehicle heating sequence has been activated. T minus 5 minutes until departure!"
     - service: bmw_connected_drive.activate_air_conditioning
@@ -182,5 +204,6 @@ launch_sequence:
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_guest_room
+        - media_player.kitchen
       data:
         message: "It's time to go! Please proceed to the departure area immediately."
