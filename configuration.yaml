@@ -7,7 +7,7 @@ homeassistant:
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 243
   # metric for Metric, imperial for Imperial
-  unit_system: metric
+  unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Chicago
   # Customization file
@@ -69,12 +69,6 @@ sensor:
           {%- endif -%}
         unit_of_measurement: '%'
         entity_id: zwave.ecolink_motion_detector
-          
-input_boolean:
-  bmw_home:
-    name: Is the BMW Home
-    initial: off
-    icon: mdi:car
 
 binary_sensor:
   - platform: template
@@ -169,4 +163,5 @@ alert:
       - 1440
     notifiers:
       - pushover
-
+ecobee:
+  api_key: !secret ecobee_api_key
