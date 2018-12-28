@@ -13,10 +13,6 @@
     - service: switch.turn_on
       data:
         entity_id: switch.zooz_zen06_switch
-    - service: notify.pushover
-      data:
-        message: "XMAS lights have been turned on"
-        title: "Lights on"
 - id: b
   alias: Christmas Lights Off
   trigger:
@@ -32,10 +28,6 @@
     - service: switch.turn_off
       data:
         entity_id: switch.ge_45604_outdoor_module_switch
-    - service: notify.pushover
-      data:
-        message: "XMAS lights have been turned off"
-        title: "Lights off"
 - id: c
   alias: Laundry room lights on
   trigger:
@@ -103,3 +95,34 @@
   action:
     - service: script.turn_on
       entity_id: script.launch_sequence
+- id: i
+  alias: Jank Alarm System
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_kitchen
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.ecolink_motion_detector_sensor_mechanical
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.ecolink_motion_detector_sensor_laundry
+      to: 'on'
+  condition:
+    condition: state
+    entity_id: input_boolean.alarm_system_armed
+    state: 'on'
+  action:
+    - service: notify.pushover
+      data:
+        message: "Alarm tripped"
+        title: "A motion sensor has been tripped."
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 1.0
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "Attention! Intruder detected! Police have been notified. Repeat, police have been notified."
