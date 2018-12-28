@@ -207,3 +207,49 @@ launch_sequence:
         - media_player.kitchen
       data:
         message: "It's time to go! Please proceed to the departure area immediately."
+away_mode:
+  sequence:
+    # TTS takes longer, so this can go first
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 0.6
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "Attention! Alarm system will be armed in 60 seconds."
+    # Climate control stuff
+    - service: climate.set_away_mode
+      data:
+        entity_id: climate.main_floor
+        away_mode: true
+    - service: climate.set_away_mode
+      data:
+        entity_id: climate.upstairs
+        away_mode: true
+    # Wait a minute
+    - delay:
+        minutes: 1
+    # Announce that the system is armed
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "System is now armed. Proceed with caution."
+    # Arm the system
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.alarm_system_armed
+return_home:
+  sequence:
+    # Disarm the system
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.alarm_system_armed
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "System is now disarmed."
