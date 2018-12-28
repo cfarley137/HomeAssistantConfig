@@ -1,0 +1,132 @@
+#default_view:
+#  name: Home
+#  icon: mdi:home
+#  entities:
+#    - group.upstairs
+#    - group.main_floor
+#    - group.garage
+elizas_room:
+  name: Eliza's Room
+  control: hidden
+  entities:
+    - light.eliza_track
+    - media_player.google_home_eliza
+guest_room:
+  name: Guest Room
+  control: hidden
+  entities:
+    - light.guest_room_track
+    - switch.zooz_ida001_switch
+    - media_player.google_home_guest_room
+upstairs:
+  name: Upstairs
+  view: true
+  control: hidden
+  entities:
+    - climate.upstairs
+    - weather.upstairs
+    - group.elizas_room
+    - group.guest_room
+    - media_player.portable
+kitchen:
+  name: Kitchen
+  control: hidden
+  entities:
+    - media_player.kitchen
+    - media_player.kitchen_display
+    - media_player.roku_streaming_stick
+main_floor:
+  name: Main Floor
+  view: true
+  control: hidden
+  entities:
+    - group.kitchen
+    - group.front_yard
+    - climate.main_floor
+    - weather.main_floor
+    - switch.zooz_zen06_switch
+    - media_player.google_home_living_room
+front_yard:
+  name: Front Yard
+  entities:
+    - switch.ge_45604_outdoor_module_switch
+basement:
+  name: Basement
+  view: true
+  control: hidden
+  entities:
+    - climate.basement
+    - weather.basement
+    - switch.laundry_room_lights
+    - switch.mechanical_room_lights
+    - switch.ge_14291_inwall_smart_switch_switch_2
+    - light.basement_hall_dimmer
+    - media_player.roku_ultra
+    - media_player.family_room_tv
+battery_levels:
+  name: Battery Levels
+  entities:
+    - sensor.zooz_multisensor_battery
+    - sensor.laundry_room_sensor_battery
+    - sensor.mechanical_room_sensor_battery
+motion_sensors:
+  name: Motion Sensors
+  entities:
+    - binary_sensor.motion_sensor_kitchen
+    - binary_sensor.ecolink_motion_detector_sensor_laundry
+    - binary_sensor.ecolink_motion_detector_sensor_mechanical 
+    - binary_sensor.motion_sensor_basement_hall
+bmw_sensors:
+  name: BMW i3
+  entities:
+    - lock.i3_94__rex_lock
+    - sensor.i3_94__rex_charging_level_hv
+    - sensor.i3_94__rex_charging_status
+    - sensor.i3_94__rex_charging_time_remaining
+    - sensor.i3_94__rex_chargingconnectiontype
+    - sensor.i3_94__rex_charginginductivepositioning
+    - sensor.i3_94__rex_connectionstatus
+    - sensor.i3_94__rex_lastchargingendreason
+    - sensor.i3_94__rex_lastchargingendresult
+    - sensor.i3_94__rex_max_range_electric
+    - sensor.i3_94__rex_maxfuel
+    - sensor.i3_94__rex_mileage
+    - sensor.i3_94__rex_remaining_fuel
+    - sensor.i3_94__rex_remaining_range_electric
+    - sensor.i3_94__rex_remaining_range_fuel
+    - sensor.i3_94__rex_remaining_range_total
+    - binary_sensor.i3_94__rex_charging_status
+    - binary_sensor.i3_94__rex_check_control_messages
+    - binary_sensor.i3_94__rex_condition_based_services
+    - binary_sensor.i3_94__rex_connection_status
+    - binary_sensor.i3_94__rex_door_lock_state
+    - binary_sensor.bmw_needs_charge
+    - binary_sensor.i3_94__rex_lids
+    - binary_sensor.i3_94__rex_lights_parking
+    - binary_sensor.i3_94__rex_windows
+climate_sensors:
+  name: Climate Sensors
+  entities:
+    - sensor.upstairs_temperature
+    - sensor.main_floor_temperature
+    - sensor.zooz_zse40_4in1_sensor_temperature_2
+    - sensor.basement_temperature
+    - sensor.upstairs_humidity
+    - sensor.main_floor_humidity
+    - sensor.zooz_zse40_4in1_sensor_relative_humidity_2
+    - sensor.basement_humidity
+    - binary_sensor.upstairs_heating
+    - binary_sensor.main_floor_heating
+    - binary_sensor.basement_heating
+media_players:
+  name: Media Players
+  view: true
+  entities:
+    - media_player.roku_ultra
+    - media_player.family_room_tv
+    - media_player.google_home_living_room
+    - media_player.google_home_guest_room
+    - media_player.google_home_eliza
+    - media_player.kitchen
+    - media_player.kitchen_display
+    - media_player.portable
