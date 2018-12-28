@@ -59,7 +59,7 @@ sensor:
   - platform: yr
   - platform: template
     sensors:
-      laundry_sensor_battery:
+      laundry_room_sensor_battery:
         friendly_name: 'Batt Level Laundry'
         value_template: >-
           {%- if states.zwave.ecolink_motion_detector -%}
@@ -67,15 +67,60 @@ sensor:
           {%- else -%}
             n/a
           {%- endif -%}
-        unit_of_measurement: '%'
         entity_id: zwave.ecolink_motion_detector
-
+        unit_of_measurement: '%'
+      mechanical_room_sensor_battery:
+        friendly_name: 'Batt Level Mechanical Room'
+        value_template: >-
+          {%- if states.zwave.ecolink_motion_detector -%}
+            {{ states.zwave.ecolink_motion_detector.attributes.battery_level }}
+          {%- else -%}
+            n/a
+          {%- endif -%}
+        entity_id: zwave.ecolink_motion_detector_2
+        unit_of_measurement: '%'
+      zooz_multisensor_battery:
+        value_template: "{{ states.zwave.zooz_zse40_4in1_sensor_2.attributes.battery_level }}"
+        friendly_name: "Batt Zooz Multi Sensor"
+        entity_id: zwave.zooz_zse40_4in1_sensor_2
+        unit_of_measurement: '%'
 binary_sensor:
   - platform: template
     sensors:
       bmw_needs_charge:
         friendly_name: "BMW Needs Charge"
         value_template: "{{ states.sensor.i3_94__rex_charging_level_hv.state|int < 30 and is_state('binary_sensor.i3_94__rex_charging_status','off') and is_state('device_tracker.i3_94__rex','home') }}"
+  - platform: template
+    sensors:
+      motion_sensor_kitchen:
+        friendly_name: "Motion Sensor Kitchen"
+        value_template: "{{ states.sensor.zooz_zse40_4in1_sensor_alarm_level.state|int >= 254 }}"
+  - platform: template
+    sensors:
+      motion_sensor_basement_hall:
+        friendly_name: "Motion Sensor Basement Hall"
+        value_template: "{{ states.sensor.ge_26933_smart_motion_dimmer_burglar_3.state|int == 8 }}"
+  - platform: template
+    sensors:
+      upstairs_heating:
+        friendly_name: "Upstairs heating"
+        value_template: "{{ states.climate.upstairs.attributes.operation == 'heat' }}"
+  - platform: template
+    sensors:
+      main_floor_heating:
+        friendly_name: "Main Floor heating"
+        value_template: "{{ states.climate.main_floor.attributes.operation == 'heat' }}"
+  - platform: template
+    sensors:
+      basement_heating:
+        friendly_name: "Basement heating"
+        value_template: "{{ states.climate.basement.attributes.operation == 'heat' }}"
+
+# Input booleans
+input_boolean:
+  alarm_system_armed:
+    name: Alarm System Armed
+    initial: off
 
 # Text to speech
 tts:
