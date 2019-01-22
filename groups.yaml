@@ -11,6 +11,12 @@ elizas_room:
   entities:
     - light.eliza_track
     - media_player.google_home_eliza
+romans_room:
+  name: Roman's Room
+  control: hidden
+  entities:
+    - light.roman_track
+    - media_player.google_home_roman
 guest_room:
   name: Guest Room
   control: hidden
