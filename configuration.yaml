@@ -55,8 +55,11 @@ sun:
 
 # Sensors
 sensor:
+  # IP Address
+  - platform: dnsip
   # Weather prediction
   - platform: yr
+  # Battery Levels
   - platform: template
     sensors:
       laundry_room_sensor_battery:
