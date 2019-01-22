@@ -126,3 +126,24 @@
         - media_player.kitchen
       data:
         message: "Attention! Intruder detected! Police have been notified. Repeat, police have been notified."
+    - service: media_player.volume_set
+      data:
+        entity_id:
+          - media_player.kitchen
+        volume_level: 1.0
+    - service: tts.google_say
+      entity_id:
+        - media_player.kitchen
+      data:
+        message: "Attention! Intruder detected! Police have been notified. Repeat, police have been notified."
+- id: j
+  alias: Notify when external IP address changes
+  initial_state: on
+  trigger: 
+    platform: state
+    entity_id: sensor.dnsip
+  action:
+    - service: notify.pushover
+      data:
+        title: "Public IP address changed"
+        message: "New external IP address is {{ states('sensor.myip') }}"
