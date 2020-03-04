@@ -102,7 +102,7 @@ launch_sequence:
           - media_player.google_home_guest_room
           - media_player.google_home_roman
         volume_level: 0.4
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_guest_room
@@ -186,7 +186,7 @@ launch_sequence:
         brightness: 40
     - delay:
         minutes: 5 
-    # T-45 (aka 6:50)
+    # T-45 (aka 7:00)
     - service: media_player.turn_on
       data:
         entity_id:
@@ -196,7 +196,7 @@ launch_sequence:
         entity_id:
           - media_player.kitchen
         volume_level: 0.4
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_roman
@@ -204,10 +204,13 @@ launch_sequence:
         - media_player.kitchen
       data:
         message: "Your wake-up call was ten minutes ago. Get ready to eat breakfast. T minus 45 minutes until departure!"
+    - service: light.turn_off
+      data:
+        entity_id: light.guest_room_track
     - delay:
         minutes: 25 
     # T-20
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.kitchen
       data:
@@ -215,7 +218,7 @@ launch_sequence:
     - delay:
         minutes: 5 
     # T-15
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_roman
@@ -225,7 +228,7 @@ launch_sequence:
     - delay:
         minutes: 5
     # T-10
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_roman
@@ -235,20 +238,17 @@ launch_sequence:
     - delay:
         minutes: 5
     # T-5
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_roman
         - media_player.kitchen
       data:
-        message: "This is the final announcement before departure. The car is warming up, so it will be nice a comfortable for you. T minus 5 minutes until departure!"
-    - service: bmw_connected_drive.activate_air_conditioning
-      data:
-        vin: !secret bmw_vin
+        message: "This is the final announcement before departure."
     - delay:
         minutes: 5
     # LAUNCH
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.google_home_eliza
         - media_player.google_home_roman
@@ -263,7 +263,7 @@ away_mode:
         entity_id:
           - media_player.kitchen
         volume_level: 0.6
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.kitchen
       data:
@@ -281,7 +281,7 @@ away_mode:
     - delay:
         minutes: 1
     # Announce that the system is armed
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.kitchen
       data:
@@ -296,7 +296,7 @@ return_home:
     - service: input_boolean.turn_off
       data:
         entity_id: input_boolean.alarm_system_armed
-    - service: tts.google_say
+    - service: tts.google_translate_say
       entity_id:
         - media_player.kitchen
       data:

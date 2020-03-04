@@ -38,6 +38,8 @@ updater:
 # Discover some devices automatically
 discovery:
 
+zeroconf:
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -90,11 +92,6 @@ sensor:
 binary_sensor:
   - platform: template
     sensors:
-      bmw_needs_charge:
-        friendly_name: "BMW Needs Charge"
-        value_template: "{{ states.sensor.i3_94__rex_charging_level_hv.state|int < 30 and is_state('binary_sensor.i3_94__rex_charging_status','off') and is_state('device_tracker.i3_94__rex','home') }}"
-  - platform: template
-    sensors:
       motion_sensor_kitchen:
         friendly_name: "Motion Sensor Kitchen"
         value_template: "{{ states.sensor.zooz_zse40_4in1_sensor_alarm_level.state|int >= 254 }}"
@@ -127,7 +124,7 @@ input_boolean:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
 
 # Cloud
 cloud:
@@ -136,13 +133,6 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 
-# Example configuration.yaml entry
-bmw_connected_drive:
-  name:
-    username: !secret bmw_username
-    password: !secret bmw_password
-    region: north_america
-    
 panel_iframe:
   configurator:
     title: Configurator
@@ -155,11 +145,6 @@ mqtt:
   port: 16729
   username: !secret cloudmqtt_username
   password: !secret cloudmqtt_password
-
-device_tracker:
-  - platform: bmw_connected_drive
-    #consider_home: 300
-    interval_seconds: 120
 
 owntracks:
   max_gps_accuracy: 200
@@ -199,17 +184,5 @@ media_player:
       service: wake_on_lan.send_magic_packet
       data:
         mac: "C8-08-E9-DA-00-6E"
-alert:
-  charge_car:
-    name: Charge car, battery is {{ states.sensor.i3_94__rex_charging_level_hv.state }}%
-    done_message: Car doesn't need charge -- alert over
-    entity_id: binary_sensor.bmw_needs_charge
-    state: 'on'
-    can_acknowledge: false
-    repeat:
-      - 60
-      - 1440
-    notifiers:
-      - pushover
 ecobee:
   api_key: !secret ecobee_api_key
