@@ -92,6 +92,8 @@
     condition: time
     weekday:
       - wed
+      - thu
+      - fri
   action:
     - service: script.turn_on
       entity_id: script.launch_sequence
@@ -147,3 +149,53 @@
       data:
         title: "Public IP address changed"
         message: "New external IP address is {{ states('sensor.myip') }}"
+- id: k
+  alias: Vacation Lights On
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:15:00"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.eliza_track
+        brightness_pct: 50
+    - service: light.turn_on
+      data:
+        entity_id: light.roman_track
+        brightness_pct: 50
+    - service: light.turn_on
+      data:
+        entity_id: light.guest_room_track
+        brightness_pct: 50
+    - service: switch.turn_on
+      data:
+        entity_id: switch.zooz_zen06_switch
+    - service: switch.turn_on
+      data:
+        entity_id: switch.ge_45604_outdoor_module_switch
+- id: l
+  alias: Vacation Lights Off
+  trigger:
+    - platform: time
+      at: '22:45:00'
+    - platform: time
+      at: '00:04:00'
+    - platform: time
+      at: '03:34:00'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.eliza_track
+    - service: light.turn_off
+      data:
+        entity_id: light.roman_track
+    - service: light.turn_off
+      data:
+        entity_id: light.guest_room_track
+    - service: switch.turn_off
+      data:
+        entity_id: switch.zooz_zen06_switch
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ge_45604_outdoor_module_switch
